@@ -4,3 +4,4 @@
 .idea/
 target/
 grails-mandrill-*.zip
+out/
