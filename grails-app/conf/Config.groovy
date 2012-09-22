@@ -24,7 +24,7 @@ log4j = {
 }
 
 mandrill {
-	apiKey = "0093a6d3-d131-47c3-9e17-b5d77c506217"
+	apiKey = ""
 	//proxy {
 	//		host = ""
 	//		port = ""
