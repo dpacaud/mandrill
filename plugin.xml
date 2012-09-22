@@ -4,7 +4,7 @@
   <title>Grails Mandrill Plugin</title>
   <description>		This is a simple wrapper for the Mandrill REST API (http://www.mandrillapp.com) 
 </description>
-  <documentation>http://grails.org/plugin/mandrill</documentation>
+  <documentation>https://github.com/dpacaud/mandrill</documentation>
   <type>MandrillGrailsPlugin</type>
   <resources>
     <resource>org.grails.mandrill.HttpWrapperService</resource>
