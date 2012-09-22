@@ -12,7 +12,8 @@
 
 def configFile = new File(basedir, 'grails-app/conf/Config.groovy')
 
-if (configFile.exists() && configFile.text.indexOf("gmandrill") == -1) {
+if (configFile.exists() && configFile.text.indexOf("mandrill") == -1) {
+    println "Adding mandrill config options to the Config file"
 configFile.withWriterAppend {
 it.writeLine '\n// Added by the Grails Mandrill plugin:'
 it.writeLine '''mandrill {

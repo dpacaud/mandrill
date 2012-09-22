@@ -22,7 +22,7 @@ class HttpWrapperService {
 
             if(grailsApplication.config.mandrill.proxy?.host && grailsApplication.config.mandrill.proxy?.port){
                 if(grailsApplication.config.mandrill.proxy?.port?.isInteger()){
-					log.info "setting Proxy to : ${grailsApplication.config.mandrill.proxy.host} on port : ${grailsApplication.config.mandrill.proxy.port}"
+					log.info "Mandrill plugin is setting setting Proxy to : ${grailsApplication.config.mandrill.proxy.host} on port : ${grailsApplication.config.mandrill.proxy.port}"
                     http.setProxy(grailsApplication.config.mandrill.proxy.host,Integer.parseInt(grailsApplication.config.mandrill.proxy.port),null)
                 }
                 else {
@@ -35,45 +35,42 @@ class HttpWrapperService {
 
 				uri.path = path
 				body = new JSON(query)
-				
-				headers.'User-Agent' = 'Mozilla/5.0 Ubuntu/8.10 Firefox/3.0.4'
-				println uri
+
+
 				// response handler for a success response code
 				response.success = { resp, reader ->
-					println "response status: ${resp.statusLine}"
-					println 'Headers: -----------'
+					log.debug "response status: ${resp.statusLine}"
+                    log.debug 'Headers: -----------'
 					resp.headers.each { h ->
-						println " ${h.name} : ${h.value}"
+                        log.debug " ${h.name} : ${h.value}"
 					}
 
 					ret = reader.getText()
 
-					println 'Response data: -----'
-					println ret
-					println '--------------------'
+                    log.debug 'Response data: -----'
+                    log.debug ret
+                    log.debug '--------------------'
 				}
 				
 				response.failure = { resp, reader ->
-					println "------ Failure ------ "
+                    log.debug "------ Failure ------ "
 					resp.headers.each { h ->
-						println " ${h.name} : ${h.value}"
+                        log.debug " ${h.name} : ${h.value}"
 					}
 					ret = reader.getText()
-					
-					println 'Response data: -----'
-					println ret
-					println '--------------------'
+
+                    log.debug 'Response data: -----'
+                    log.debug ret
+                    log.debug '--------------------'
 				}
 			}
 			return ret
 
 		} catch (groovyx.net.http.HttpResponseException ex) {
-			println "toto"
-			println ex
+			log.error ex.getMessage()
 			return null
 		} catch (java.net.ConnectException ex) {
-		println "tata"
-			println ex
+            log.error ex.getMessage()
 			return null
 		}
         catch (NumberFormatException nfe) {
@@ -81,8 +78,7 @@ class HttpWrapperService {
             return null
         }
 		catch (Exception e) {
-			println "titi"
-			println e
+            log.error e.getMessage()
 			return null
 		}
 	}
