@@ -25,16 +25,13 @@ class MandrillGrailsPlugin {
     // Extra (optional) plugin metadata
 
     // License: one of 'APACHE', 'GPL2', 'GPL3'
-    def license = "GPL"
-
-    // Details of company behind the plugin (if there is one)
-//    def organization = [ name: "My Company", url: "http://www.my-company.com/" ]
+    def license = "APACHE"
 
     // Any additional developers beyond the author specified above.
-//    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
+    def developers = [ [ name: "Damien Pacaud", email: "damien.pacaud@gmail.com" ]]
 
     // Location of the plugin's issue tracker.
-//    def issueManagement = [ system: "JIRA", url: "http://jira.grails.org/browse/GPMYPLUGIN" ]
+    def issueManagement = [ system: "GITHUB", url: "https://github.com/dpacaud/mandrill/issues" ]
 
     // Online location of the plugin's browseable source code.
     def scm = [ url: "https://github.com/dpacaud/mandrill" ]
