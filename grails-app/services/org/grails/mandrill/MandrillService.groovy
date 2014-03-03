@@ -25,7 +25,7 @@ class MandrillService {
 	def send(MandrillMessage message) {
 		def path = "messages/send.json"
 		def query =  [key:grailsApplication.config.mandrill.apiKey,message:message]
-		return  httpWrapperService.postText(BASE_URL, path ,query)
+		return new SendResponse(httpWrapperService.postText(BASE_URL, path ,query))
 	}
 	
 	def sendTemplate(MandrillMessage message, String templateName, List templateContent) {
