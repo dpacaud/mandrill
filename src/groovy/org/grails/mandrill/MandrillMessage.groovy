@@ -20,5 +20,5 @@ class MandrillMessage {
 //	// List<MergeVar> global_merge_vars
 	Map headers
 	// Map<String, String> headers
-	
+
 }
