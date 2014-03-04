@@ -136,3 +136,8 @@ These fields will be accessible via a SendResponse object:
       log.error("Error sending email: status: $ret.status rejectReason: $ret.rejectReason, message: $ret.message")
     }
 Note: success is derived from status being either 'sent', 'queued', or 'scheduled'
+
+
+### Contributors
+
+Thanks to [James Schindler](https://github.com/Jimbo1167) and [gaganc](https://github.com/gaganc) for their contributions
