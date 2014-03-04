@@ -70,7 +70,7 @@ To send a text mail :
     message.tags.add("test")
     def ret = mandrillService.send(message)
 
-ret should contain a JSON array with success information or error information
+send will return a SendResponse Object with success or error information
 
 To send an HTML mail :
 
@@ -85,7 +85,7 @@ To send an HTML mail :
     message.tags.add("test")
     def ret = mandrillService.send(message)
 
-ret should contain a JSON array with success information or error information
+send will return SendResponse Object with success or error information
 
 ### SendTemplate
 
@@ -103,3 +103,36 @@ To send a mail using template :
                                       to:recpts)
     message.tags.add("test")
     def ret = mandrillService.sendTemplate(message, "templateName", contens )
+
+### SendResponse
+Per the [Mandrill API](https://mandrillapp.com/api/docs/messages.JSON.html#example-response-send) send calls will respond with:
+
+    Example Response JSON
+    [
+      {
+          "email": "recipient.email@example.com",
+          "status": "sent",
+          "reject_reason": "hard-bounce",
+          "_id": "abc123abc123abc123abc123abc123"
+      }
+    ]
+
+    Example Error Response JSON
+    [
+      {
+          "status": "error",
+          "code": 12,
+          "name": "Unknown_Subaccount",
+          "message": "No subaccount exists with the id 'customer-123'"
+      }
+    ]
+
+These fields will be accessible via a SendResponse object:
+
+    def ret = mandrillService.sendTemplate(message, "templateName", contens )
+    if (ret.success) {
+        // do successful things
+    } else {
+      log.error("Error sending email: status: $ret.status rejectReason: $ret.rejectReason, message: $ret.message")
+    }
+Note: success is derived from status being either 'sent', 'queued', or 'scheduled'
