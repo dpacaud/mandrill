@@ -1,4 +1,4 @@
-<plugin name='mandrill' version='0.1' grailsVersion='2.1 &gt; *'>
+<plugin name='mandrill' version='0.2' grailsVersion='2.1 &gt; *'>
   <author>Damien Pacaud</author>
   <authorEmail>damien.pacaud@gmail.com</authorEmail>
   <title>Grails Mandrill Plugin</title>
