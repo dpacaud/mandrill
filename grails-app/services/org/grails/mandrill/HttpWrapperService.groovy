@@ -64,7 +64,7 @@ class HttpWrapperService {
                     log.debug '--------------------'
 				}
 			}
-			return JSON.parse(ret)
+			return ret
 
 		} catch (groovyx.net.http.HttpResponseException ex) {
 			log.error ex.getMessage()

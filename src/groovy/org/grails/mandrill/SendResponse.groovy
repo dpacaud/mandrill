@@ -1,4 +1,5 @@
 package org.grails.mandrill
+import grails.converters.JSON
 
 class SendResponse {
     String status
@@ -8,7 +9,7 @@ class SendResponse {
     boolean success
 
     SendResponse(data) {
-        data = data.first()
+        data = JSON.parse(data).first()
         this.status = data?.status
         this.rejectReason = data?.reject_reason
         this.email = data?.email
