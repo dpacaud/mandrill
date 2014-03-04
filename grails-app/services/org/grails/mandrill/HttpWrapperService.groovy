@@ -12,7 +12,7 @@ class HttpWrapperService {
 
 	def postText(String baseUrl, String path, query, method = Method.POST) {
 		try {
-			
+
 			def ret = null
 			def http = new HTTPBuilder(baseUrl)
 
@@ -51,7 +51,7 @@ class HttpWrapperService {
                     log.debug ret
                     log.debug '--------------------'
 				}
-				
+
 				response.failure = { resp, reader ->
                     log.debug "------ Failure ------ "
 					resp.headers.each { h ->
