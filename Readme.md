@@ -11,6 +11,7 @@ It curently handles :
 * [Ping](https://mandrillapp.com/api/docs/users.html#method=ping)
 * [Info](https://mandrillapp.com/api/docs/users.html#method=info)
 * [Send](https://mandrillapp.com/api/docs/messages.html#method=send)
+* [SendTemplate](https://mandrillapp.com/api/docs/messages.JSON.html#method=send-template)
 
 
 Installation
@@ -28,7 +29,7 @@ Upon install, this plugin adds a section to your Config.groovy file
               //}
               }
 
-You need to fill in the apiKey parameter with the REST api KEY that you get with your [mandrill account](http://www.mandrill.com) 
+You need to fill in the apiKey parameter with the REST api KEY that you get with your [mandrill account](http://www.mandrill.com)
 
 Usage
 -------
@@ -48,7 +49,7 @@ ret should contain "PONG!"
 ### Info
 
 To call the ping method just type :
-    
+
     def ret =  mandrillService.info()
 
 ret should contain a JSON array with the infos associated to your mandrill API Key
@@ -56,8 +57,8 @@ ret should contain a JSON array with the infos associated to your mandrill API K
 
 ### Send
 
-To send a mail :
-       
+To send a text mail :
+
     def recpts = []
     recpts.add(new MandrillRecipient(name:"foo", email:"foo@bar.com"))
     recpts.add(new MandrillRecipient(name:"bar", email:"bar@foo.com"))
@@ -65,8 +66,40 @@ To send a mail :
                                       text:"this is a text message",
                                       subject:"this is a subject",
                                       from_email:"thisisatest@yopmail.com",
-                                      to:recpts) 
+                                      to:recpts)
     message.tags.add("test")
     def ret = mandrillService.send(message)
 
 ret should contain a JSON array with success information or error information
+
+To send an HTML mail :
+
+    def recpts = []
+    recpts.add(new MandrillRecipient(name:"foo", email:"foo@bar.com"))
+    recpts.add(new MandrillRecipient(name:"bar", email:"bar@foo.com"))
+    def message = new MandrillMessage(
+                                      html:"<html><body>this is an<b>html</b> message</body></html>",
+                                      subject:"this is a subject",
+                                      from_email:"thisisatest@yopmail.com",
+                                      to:recpts)
+    message.tags.add("test")
+    def ret = mandrillService.send(message)
+
+ret should contain a JSON array with success information or error information
+
+### SendTemplate
+
+To send a mail using template :
+
+    def recpts = []
+    recpts.add(new MandrillRecipient(name:"foo", email:"foo@bar.com"))
+    recpts.add(new MandrillRecipient(name:"bar", email:"bar@foo.com"))
+    def contents = []
+    contents.add([name:"test name", content:"test content"])
+    def message = new MandrillMessage(
+                                      text:"this is a text message",
+                                      subject:"this is a subject",
+                                      from_email:"thisisatest@yopmail.com",
+                                      to:recpts)
+    message.tags.add("test")
+    def ret = mandrillService.sendTemplate(message, "templateName", contens )
