@@ -8,6 +8,7 @@ class MandrillMessage {
 	String subject
 	String from_email
 	String from_name
+	List attachments
 	List to
 	boolean track_opens=false
 	boolean track_clicks=false
