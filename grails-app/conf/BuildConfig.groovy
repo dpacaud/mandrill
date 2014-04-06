@@ -35,5 +35,8 @@ grails.project.dependency.resolution = {
             export = false
         }
     }
+
+    //grails.project.repos.grailsCentral.username = ""
+    //grails.project.repos.grailsCentral.password = ""
 }
 
