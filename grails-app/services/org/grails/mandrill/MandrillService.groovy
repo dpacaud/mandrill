@@ -1,5 +1,5 @@
 package org.grails.mandrill
-
+import grails.converters.JSON
 
 class MandrillService {
 	static transactional = false
@@ -26,14 +26,16 @@ class MandrillService {
 
 		def path = "messages/send.json"
 		def query =  [key:grailsApplication.config.mandrill.apiKey,message:message]
-		return new SendResponse(httpWrapperService.postText(BASE_URL, path ,query))
+		def data = JSON.parse(httpWrapperService.postText(BASE_URL, path ,query)).collect { new SendResponse(it) }
+		return data
 	}
 
 	def sendTemplate(MandrillMessage message, String templateName, List templateContent) {
 		def path = "messages/send-template.json"
 		def query =  [key:grailsApplication.config.mandrill.apiKey, template_name:templateName,
 			template_content:templateContent, message:message]
-		return new SendResponse(httpWrapperService.postText(BASE_URL, path ,query))
+		def data = JSON.parse(httpWrapperService.postText(BASE_URL, path ,query)).collect { new SendResponse(it) }
+		return data
 	}
 
 }
