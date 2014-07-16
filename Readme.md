@@ -140,4 +140,4 @@ Note: success is derived from status being either 'sent', 'queued', or 'schedule
 
 ### Contributors
 
-Thanks to [James Schindler](https://github.com/Jimbo1167) and [gaganc](https://github.com/gaganc) for their contributions
+Thanks to [James Schindler](https://github.com/Jimbo1167), [gaganc](https://github.com/gaganc) and [cympak2](https://github.com/cympak2) for their contributions
