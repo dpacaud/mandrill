@@ -1,41 +1,48 @@
 package org.grails.mandrill
+
+import javax.annotation.PostConstruct
+
 import grails.converters.JSON
 
 class MandrillService {
+
 	static transactional = false
+
+	def grailsApplication
 	def httpWrapperService
-    def grailsApplication
 
-	def BASE_URL = "https://mandrillapp.com/api/1.0/"
-    //TODO : Handle the API key and throw an error when it is absent
-	def ping() {
-		def path = "users/ping.json"
-		def query =  [key:grailsApplication.config.mandrill.apiKey]
-		return  httpWrapperService.postText(BASE_URL, path ,query)
+	static final String BASE_URL = "https://mandrillapp.com/api/1.0/"
+
+	//TODO : Handle the API key and throw an error when it is absent
+	String ping() {
+		postText "users/ping.json"
 	}
 
-
-	def info() {
-		def path = "users/info.json"
-		def query =  [key:grailsApplication.config.mandrill.apiKey]
-		return  httpWrapperService.postText(BASE_URL, path ,query)
+	String info() {
+		postText "users/info.json"
 	}
 
-
-	def send(MandrillMessage message) {
-
-		def path = "messages/send.json"
-		def query =  [key:grailsApplication.config.mandrill.apiKey,message:message]
-		def data = JSON.parse(httpWrapperService.postText(BASE_URL, path ,query)).collect { new SendResponse(it) }
-		return data
+	List<SendResponse> send(MandrillMessage message) {
+		JSON.parse(postText("messages/send.json", [message: message])).collect { new SendResponse(it) }
 	}
 
-	def sendTemplate(MandrillMessage message, String templateName, List templateContent) {
-		def path = "messages/send-template.json"
-		def query =  [key:grailsApplication.config.mandrill.apiKey, template_name:templateName,
-			template_content:templateContent, message:message]
-		def data = JSON.parse(httpWrapperService.postText(BASE_URL, path ,query)).collect { new SendResponse(it) }
-		return data
+	List<SendResponse> sendTemplate(MandrillMessage message, String templateName, List templateContent) {
+		def query =  [template_name: templateName, template_content: templateContent, message: message]
+		JSON.parse(postText("messages/send-template.json", query)).collect { new SendResponse(it) }
 	}
 
+	private String postText(String path, Map query = [:]) {
+		httpWrapperService.postText(BASE_URL, path, query + [key: mandrillConfig.apiKey])
+	}
+
+	@PostConstruct
+	private void init() {
+		if (!mandrillConfig.apiKey && System.getenv('MANDRILL_APIKEY')) {
+			mandrillConfig.apiKey = System.getenv('MANDRILL_APIKEY')
+		}
+	}
+
+	private getMandrillConfig() {
+		grailsApplication.config.mandrill
+	}
 }

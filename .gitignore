@@ -1,7 +1,9 @@
 *.iml
 *.ipr
 *.iws
-.idea/
-target/
-grails-mandrill-*.zip
-out/
+*.log
+.DS_Store
+/.gradle
+/.idea
+/build
+/out
