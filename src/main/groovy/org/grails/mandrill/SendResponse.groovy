@@ -1,5 +1,8 @@
 package org.grails.mandrill
 
+import groovy.transform.ToString
+
+@ToString(includeNames=true)
 class SendResponse {
     String status
     String message
